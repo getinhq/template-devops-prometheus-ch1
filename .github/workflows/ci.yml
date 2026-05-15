@@ -10,3 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker compose config
+      - name: Require additional scrape job
+        run: |
+          count=$(grep -c "job_name:" prometheus.yml || true)
+          test "$count" -ge 2
